@@ -26,7 +26,7 @@ SECRET_KEY = '+02)l#6em#2ua2rirv+$bleo(h2qmumlk(6fa(tw6b10tk14o%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['apps.iotpanama.com',]
 
 
 # Application definition
