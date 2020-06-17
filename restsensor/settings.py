@@ -26,7 +26,7 @@ SECRET_KEY = '+02)l#6em#2ua2rirv+$bleo(h2qmumlk(6fa(tw6b10tk14o%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['apps.iotpanama.com',]
+ALLOWED_HOSTS = ['apps.iotpanama.com', 'localhost']
 
 
 # Application definition
@@ -74,7 +74,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'restsensor.wsgi.application'
 
 REST_FRAMEWORK = {
-    'DEFAULT_RENDERER_CLASSES': ('rest_framework.renderers.JSONRenderer',)
+    'DEFAULT_RENDERER_CLASSES': ('rest_framework.renderers.JSONRenderer')
 }
 
 
