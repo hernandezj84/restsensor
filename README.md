@@ -11,7 +11,40 @@ Estructura JSON: La estructura de los paquetes JSON será header, en el cual sol
 		“Device-Type”: “xxxxxxxxxxxx”,
 	}
  }
+## IDs y serializacion de productos
+Los ID son los códigos responsables de las transacciones de datos con las bases de datos. En este sentido se propone una estructura para el manejo interno de los mismos. Por otra parte la serialización de los productos será la cadena responsable de tener monitoreado los productos en manos del usuario. La serializacion será generada en una base de datos y se asignará su uso cuando el producto este listo para salir al mercado.
 
+* **ENTIDADES:** Las entidades son los registros que tendrán un nombre propio dentro de los sistemas el cual se les es asignado mediante los ID.
+* **ID USUARIO:** es una cadena única para cada usuario que será su identificador en el sistema. Esta cadena es para uso interno del sistema. Esta cadena estará compuesta por un sufijo fijo que se propone IOTUSER + una mascara de 8 dígitos.
+* **DEVICE-TYPE:** cadena de texto que identifica el tipo de producto que es, compuesta por 6 caracteres en mayúscula. Por ejemplo el Sensor de fuga de gas glp sería, SFGGLP.
+* **DEVICE-ID:** Este id debe utilizar la cadena de texto del DEVICE-TYPE, descrita en el punto anterior mas una mascara de 8 dígitos. Ver ejemplos
+* **SERIALIZACION:** La serializacion es la cadena de texto que dará salida del producto para ser comercializado. El mismo estará compuesto por una cadena de texto + unamascara de 8 dígitos.
+
+## Ejemplos
+**DEVICE-ID**
+
+*   **CADENA:** TTTTT-LLLL-NNNNN
+*   "TTTTTT" es lo mismo que para el device type.
+*   "LLLL" puede ser utilizado como referencia de ubicación del producto (4 caracteres alphanuméricos).
+*   "NNNNN" es el número de identidad del producto (5 caracteres numéricos).
+* Nota: Total 15 caracteres
+
+**DEVICE-TYPE:**
+
+*   **CADENA:** TTTTTT-AAAA-MMMM
+*   "TTTTTT" es el tipo de sensor (6 caracteres). Por ejemplo: SFGLPG.
+*   "AAAA" es un campo para especificar alguna aplicación en particular (4 caracteres).
+*   "MMMM" es un campo para describir el modelo utilizado (4 caracteres).
+* Nota: Los caracteres son alfanuméricos - Total 14 caracteres
+
+**USER-ID**
+
+* **CADENA:** IOTPTYUSER00000001
+* Nota: Total 16 caracteres
+
+**SERIALIZACION**
+
+* **CADENA:** IOTSN-00000001
 
 ---
 
