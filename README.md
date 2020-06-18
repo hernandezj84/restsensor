@@ -1,4 +1,4 @@
-# DOCUMENTO DE COMPRECION API RESTFul
+# DOCUMENTO DE COMPRESION API RESTFul
 
 El siguiente documento tiene como objetivo, desarrollar las bases de compresión de cada método a desarrollar para el funcionamiento del modelo.
 Este api, será encargado de gestionar todas las transacciones tanto REQUEST como RESPONSE, de cada entidad interviniente en el sistema.
