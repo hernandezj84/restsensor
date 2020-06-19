@@ -75,7 +75,7 @@ class Event(models.Model):
     gas_type = models.ForeignKey(GasType, on_delete=models.PROTECT)
     time_stamp = models.IntegerField()
     battery_level = models.FloatField()
-    rrssi = models.IntegerField()
+    rssi = models.IntegerField()
     jocker = models.CharField(blank=True, max_length=100)
 
     def __str__(self):
