@@ -60,13 +60,12 @@ Los ID son los códigos responsables de las transacciones de datos con las bases
 
 * { 
 	“sensor”: {
-  		“Device-Id”: “xxxxxxxxxxxxx”,
-		“Device-Type”: “xxxxxxxxxxxx”,
-		“Status”: “1”
-		“Alarm”: ”0”,
-		“Acc-Time”: “1”,
-		“TimeStamp”: “00000000000000”,
-		“Concentración”: “00%”
+  		“device_id”: “xxxxxxxxxxxxx”,
+		“status”: “1”
+		“alarm”: ”0”,
+		“acc_time”: “1”,
+		“timestamp”: “00000000000000”,
+		“conncent_gas”: “00%”
 	}
  }
 
