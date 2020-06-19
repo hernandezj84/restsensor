@@ -27,7 +27,7 @@ def validate_type_values(json_post, contract_types):
     return {key: (type(value)) for (key, value) in json_post.items()} != contract_types
 
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def test(request):
     """Test if the rest server is working well"""
     success = SuccessMessages()
