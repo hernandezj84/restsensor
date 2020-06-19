@@ -65,7 +65,7 @@ Los ID son los códigos responsables de las transacciones de datos con las bases
 		“alarm”: ”0”,
 		“acc_time”: “1”,
 		“timestamp”: “00000000000000”,
-		“conncent_gas”: “00%”
+		“concent_gas”: “00%”
 	}
  }
 
