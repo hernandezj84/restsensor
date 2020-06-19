@@ -59,15 +59,13 @@ Los ID son los códigos responsables de las transacciones de datos con las bases
 4. El modelo del paquete JSON es el siguiente:
 
 * { 
-	“sensor”: {
-  		“device_id”: “xxxxxxxxxxxxx”,
-		“status”: “1”
-		“alarm”: ”0”,
-		“acc_time”: “1”,
-		“timestamp”: “00000000000000”,
-		“conncent_gas”: “00%”
-	}
- }
+	“device_id”: “xxxxxxxxxxxxx”,
+	“status”: “1”
+	“alarm”: ”0”,
+	“acc_time”: “1”,
+	“timestamp”: “00000000000000”,
+	“concent_gas”: “00%”
+   }
 
 
 
