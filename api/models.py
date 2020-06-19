@@ -1,8 +1,10 @@
+"""Django's api model file"""
 from django.db import models
 from django.contrib.auth.models import User
 
 
 class ApiUser(models.Model):
+    """Model inheriting from user class. Gives more accurate fields for the user"""
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     name = models.CharField(max_length=100)
     lastname = models.CharField(max_length=100)
@@ -17,6 +19,7 @@ class ApiUser(models.Model):
 
 
 class Category(models.Model):
+    """Model of the device_type category"""
     class Meta:
         verbose_name_plural = "categories"
     name = models.CharField(max_length=100, unique=True)
@@ -27,6 +30,7 @@ class Category(models.Model):
 
 
 class Device(models.Model):
+    """Model of the device"""
     class Meta:
         verbose_name_plural = "devices"
     device_id = models.CharField(max_length=20, unique=True)
@@ -38,6 +42,7 @@ class Device(models.Model):
 
 
 class DeviceUser(models.Model):
+    """Model that combines the Device and the Django's User model"""
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     device = models.ForeignKey(Device, on_delete=models.PROTECT)
 
@@ -46,7 +51,8 @@ class DeviceUser(models.Model):
 
 
 class Alarm(models.Model):
-    alarm = models.CharField(max_length=100)
+    """Model that defines the type of the alarms"""
+    alarm = models.CharField(max_length=100, unique=True)
     description = models.CharField(max_length=25)
 
     def __str__(self):
@@ -54,6 +60,7 @@ class Alarm(models.Model):
 
 
 class Event(models.Model):
+    """Model that defines a device's event"""
     device = models.ForeignKey(Device, on_delete=models.PROTECT)
     alarm = models.ForeignKey(Alarm, on_delete=models.PROTECT)
     acc_time = models.CharField(max_length=100)
@@ -66,6 +73,7 @@ class Event(models.Model):
 
 
 class GasType(models.Model):
+    """Model that defines the category or the types of gases for the project"""
     gas_type = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
@@ -73,6 +81,8 @@ class GasType(models.Model):
 
 
 class WifiGlp(models.Model):
+    """Model that defines a special event. When this object is saved
+    it will trigger a document to Firebase"""
     device = models.ForeignKey(Device, on_delete=models.PROTECT)
     concent_gas = models.CharField(max_length=100)
     acc_time = models.CharField(max_length=100)
