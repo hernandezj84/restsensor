@@ -55,7 +55,7 @@ def create_event(request):
         alarm = Alarm.objects.get(alarm=json_post[c_event.alarm])
         event = Event(device=device, alarm=alarm)
         insert.save_model(event, json_post)
-        data[success.message] = success.inserted("Device", device.device_id)
+        data[success.message] = success.inserted("Event with", device.device_id)
 
     except KeyError:
         response_status = status.HTTP_406_NOT_ACCEPTABLE
