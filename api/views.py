@@ -78,6 +78,7 @@ def create_event(request):
     except ContractException:
         response_status = status.HTTP_406_NOT_ACCEPTABLE
         data[errors.message] = errors.json_keys
+        data["JSON_TEAM"] = json_post
 
     except ContractTypesException:
         response_status = status.HTTP_406_NOT_ACCEPTABLE
