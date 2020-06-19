@@ -3,10 +3,11 @@ from django.db import IntegrityError
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
-from api.models import Event, Device, Alarm
+from api.models import Event, Device, Alarm, GasType
 from api.contracts import ContractEvent
 from api.messages import ErrorsMessages, SuccessMessages
 from api.crud import Insert
+from types import SimpleNamespace
 
 
 class ContractException(Exception):
@@ -38,6 +39,7 @@ def test(request):
 def create_event(request):
     """Creates an event with a POST request based in EventContract class"""
     c_event = ContractEvent()
+    c_fields = SimpleNamespace(**c_event.contract_keys)
     errors = ErrorsMessages()
     success = SuccessMessages()
     insert = Insert()
@@ -50,10 +52,10 @@ def create_event(request):
             raise ContractException()
         if validate_type_values(json_post, c_event.contract_types):
             raise ContractTypesException()
-        device_id_data = json_post[c_event.device_id]
-        device = Device.objects.get(device_id=device_id_data)
-        alarm = Alarm.objects.get(alarm=json_post[c_event.alarm])
-        event = Event(device=device, alarm=alarm)
+        device = Device.objects.get(device_id=json_post[c_fields.device_id])
+        alarm = Alarm.objects.get(alarm=json_post[c_fields.alarm_level])
+        gas_type = GasType.objects.get(gas_type=json_post[c_fields.gas_type])
+        event = Event(device=device, alarm=alarm, gas_type=gas_type)
         insert.save_model(event, json_post)
         data[success.message] = success.inserted("Event with device: ", device.device_id)
 
@@ -66,6 +68,10 @@ def create_event(request):
         data[errors.message] = errors.not_found("device")
 
     except Alarm.DoesNotExist:
+        response_status = status.HTTP_404_NOT_FOUND
+        data[errors.message] = errors.not_found("alarm")
+
+    except GasType.DoesNotExist:
         response_status = status.HTTP_404_NOT_FOUND
         data[errors.message] = errors.not_found("alarm")
 

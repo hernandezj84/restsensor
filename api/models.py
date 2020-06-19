@@ -58,26 +58,28 @@ class Alarm(models.Model):
     def __str__(self):
         return "{} | {}".format(self.alarm, self.description)
 
-
-class Event(models.Model):
-    """Model that defines a device's event"""
-    device = models.ForeignKey(Device, on_delete=models.PROTECT)
-    alarm = models.ForeignKey(Alarm, on_delete=models.PROTECT)
-    acc_time = models.CharField(max_length=100)
-    timestamp = models.CharField(max_length=100)
-    concent_gas = models.CharField(max_length=100)
-    status = models.CharField(max_length=100)
-
-    def __str__(self):
-        return "{}-{}-{}-{}".format(self.device, self.alarm, self.timestamp, self.status)
-
-
 class GasType(models.Model):
     """Model that defines the category or the types of gases for the project"""
     gas_type = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
         return self.gas_type
+
+class Event(models.Model):
+    """Model that defines a device's event"""
+    device = models.ForeignKey(Device, on_delete=models.PROTECT)
+    alarm = models.ForeignKey(Alarm, on_delete=models.PROTECT)
+    gas_percent = models.IntegerField()
+    measured_volts = models.FloatField()
+    acc_time = models.IntegerField()
+    gas_type = models.ForeignKey(GasType, on_delete=models.PROTECT)
+    time_stamp = models.IntegerField()
+    battery_level = models.FloatField()
+    rrssi = models.IntegerField()
+    jocker = models.CharField(blank=True, max_length=100)
+
+    def __str__(self):
+        return "{} {} {}".format(self.device, self.alarm, self.time_stamp)
 
 
 class WifiGlp(models.Model):
