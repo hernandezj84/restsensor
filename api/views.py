@@ -31,7 +31,7 @@ def validate_type_values(json_post, contract_types):
 def test(request):
     """Test if the rest server is working well"""
     success = SuccessMessages()
-    return Response({"server": success})
+    return Response({"server": success.message})
 
 
 @api_view(['POST'])
