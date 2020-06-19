@@ -58,14 +58,15 @@ Los ID son los códigos responsables de las transacciones de datos con las bases
 3. El tercer evento es donde el sensor detecta presencia de gas, y comenzará un proceso interno del sensor a mandar periódicamente reportes del evento e indicará el nivel de alarma que dependerá de la concentración de gas más el tiempo transcurrido en esa situación.  En este sentido la api rest, debe ser capaz de registrar dicho evento en la DB de eventos además de registrar el evento en FIREBASE para que sea capturado por la app. En esta parte del método en sistema debe ser capaz de tomar algunas decisiones en función de tipo de alarma, las cuales se analizarán previamente; sin embargo, los niveles de de Alarma serán los siguientes: Alarm = 0 = NORMAL; Alarm = 1 = LOW; Alarm = 2 = MEDIUM; Alarm = 3 = HIGH; Alarm = 4 = ULTRA.
 4. El modelo del paquete JSON es el siguiente:
 
-* { 
-	“device_id”: “xxxxxxxxxxxxx”,
-	“status”: “1”
-	“alarm”: ”0”,
-	“acc_time”: “1”,
-	“timestamp”: “00000000000000”,
-	“concent_gas”: “00%”
-   }
+* {
+          "gas_percent": "int", 
+          "measured_volts": "float", 
+          "acc_time": "int", 
+          "alarm_level": "int", 
+          "gas_type": "int", 
+          "time_stamp": "epoch", 
+          "device_id": "String"
+     }
 
 
 
