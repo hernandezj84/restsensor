@@ -83,9 +83,11 @@ def create_event(request):
     except ContractTypesException:
         response_status = status.HTTP_406_NOT_ACCEPTABLE
         data[errors.message] = errors.json_types
+        data["JSON_TEAM"] = json_post
 
     except IntegrityError:
         response_status = status.HTTP_406_NOT_ACCEPTABLE
         data[errors.message] = errors.invalid_post
+        data["JSON_TEAM"] = json_post
 
     return Response(data, status=response_status)
