@@ -67,8 +67,8 @@ Los ID son los códigos responsables de las transacciones de datos con las bases
 - **"acc_time":** int,
 - **"gas_type":** int, 0 y 2
 - **"time_stamp":** unix_time,
-- **"battery_level":** float, 0 y 100
-- **"rssi":** int,
+- **"battery_level":** int, 0 y 100
+- **"rssi":** int, %
 - **"jocker":** "string"
 
 
@@ -82,8 +82,8 @@ Los ID son los códigos responsables de las transacciones de datos con las bases
 "acc_time": 100,
 "gas_type": 1,
 "time_stamp": 1592605050,
-"battery_level": 3.90,
-"rrssi": -90,
+"battery_level": 30,
+"rssi": -90,
 "jocker": "seudonimo"
 }
 
