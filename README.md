@@ -58,15 +58,34 @@ Los ID son los códigos responsables de las transacciones de datos con las bases
 3. El tercer evento es donde el sensor detecta presencia de gas, y comenzará un proceso interno del sensor a mandar periódicamente reportes del evento e indicará el nivel de alarma que dependerá de la concentración de gas más el tiempo transcurrido en esa situación.  En este sentido la api rest, debe ser capaz de registrar dicho evento en la DB de eventos además de registrar el evento en FIREBASE para que sea capturado por la app. En esta parte del método en sistema debe ser capaz de tomar algunas decisiones en función de tipo de alarma, las cuales se analizarán previamente; sin embargo, los niveles de de Alarma serán los siguientes: Alarm = 0 = NORMAL; Alarm = 1 = LOW; Alarm = 2 = MEDIUM; Alarm = 3 = HIGH; Alarm = 4 = ULTRA.
 4. El modelo del paquete JSON es el siguiente:
 
-* {
-          "gas_percent": "int", 
-          "measured_volts": "float", 
-          "acc_time": "int", 
-          "alarm_level": "int", 
-          "gas_type": "int", 
-          "time_stamp": "epoch", 
-          "device_id": "String"
-     }
+## Paquete JSON
+
+- **"device_id":** "string", --> 17 char
+- **"alarm_level":** int, entre 0 y 4
+- **"gas_percent":** int, entre 0 y 100,
+- **"measured_volts":** float, 0 y 5
+- **"acc_time":** int,
+- **"gas_type":** int, 0 y 2
+- **"time_stamp":** unix_time,
+- **"battery_level":** float, 0 y 100
+- **"rssi":** int,
+- **"jocker":** "string"
+
+
+## Ejemplo
+
+* { 
+"device_id": "TTTTTT-LLLL-IIIII",
+"alarm_level": 1,
+"gas_percent": 75,
+"measured_volts": 3.02,
+"acc_time": 100,
+"gas_type": 1,
+"time_stamp": 1592605050,
+"battery_level": 3.90,
+"rrssi": -90,
+"jocker": "seudonimo"
+}
 
 
 
