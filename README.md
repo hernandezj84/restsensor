@@ -47,7 +47,7 @@ Los ID son los códigos responsables de las transacciones de datos con las bases
 * **CADENA:** IOTSN-00000001
 
 ----------
-### **BLOQUES E REGIONES PARA CONFORMACION DEL device_id**
+### **BLOQUES DE REGIONES PARA CONFORMACION DEL device_id**
 
 SFGGLP-205-000001
 SE LEERIA sensor de fuga de gas glp-panama-000001
