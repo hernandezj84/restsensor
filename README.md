@@ -46,6 +46,45 @@ Los ID son los códigos responsables de las transacciones de datos con las bases
 
 * **CADENA:** IOTSN-00000001
 
+----------
+### **BLOQUES DE REGIONES PARA CONFORMACION DEL device_id**
+
+SFGGLP-205-000001
+SE LEERIA sensor de fuga de gas glp-panama-000001
+
+**AMERICA DEL NORTE**
+
+- 100 CANADA
+- 101 EEUU
+- 102 MEXICO
+
+**CENTROAMERICA**
+
+- 200 COSTA RICA
+- 201 EL SALVADOR
+- 202 GUATEMALA
+- 203 HONDURAS
+- 204 NICARAGUA
+- 205 PANAMA
+
+**AMERICA DEL SUR**
+
+- 300 ARGENTINA
+- 301 BOLIVIA
+- 302 BRASIL
+- 303 CHILE
+- 304 COLOMBIA
+- 305 ECUADOR
+- 306 PARAGUAY
+- 307 PERU
+- 308 SURINAM
+- 309 URUGUAY
+- 310 VENEZUELA
+
+**EL CARIBE Y LAS ANTILLAS**
+
+- 400 CARIBE
+
 ---
 
 # METODOS
@@ -67,8 +106,8 @@ Los ID son los códigos responsables de las transacciones de datos con las bases
 - **"acc_time":** int,
 - **"gas_type":** int, 0 y 2
 - **"time_stamp":** unix_time,
-- **"battery_level":** float, 0 y 100
-- **"rssi":** int,
+- **"battery_level":** int, 0 y 100
+- **"rssi":** int, %
 - **"jocker":** "string"
 
 
@@ -82,8 +121,8 @@ Los ID son los códigos responsables de las transacciones de datos con las bases
 "acc_time": 100,
 "gas_type": 1,
 "time_stamp": 1592605050,
-"battery_level": 3.90,
-"rrssi": -90,
+"battery_level": 30,
+"rssi": -90,
 "jocker": "seudonimo"
 }
 
