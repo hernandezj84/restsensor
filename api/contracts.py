@@ -11,7 +11,7 @@ class ContractEvent():
             "acc_time": 100,
             "gas_type": 1,
             "time_stamp": 1592605050,
-            "battery_level": 3.90,
+            "battery_level": 10,
             "rssi": -90,
             "jocker": "string"}
         self.contract_keys = {key:key for key in self.contract}
