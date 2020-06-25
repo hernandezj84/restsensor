@@ -54,7 +54,7 @@ def create_event(request):
             raise ContractTypesException()
         device = Device.objects.get(
             device_id=json_post[event_fields.device_id])
-        alarm = Alarm.objects.get(alarm=json_post[event_fields.alarm_level])
+        alarm = Alarm.objects.get(alarm=json_post["alarm_level"])
         gas_type = GasType.objects.get(
             gas_type=json_post[event_fields.gas_type])
         event = Event(device=device, alarm=alarm, gas_type=gas_type)
@@ -72,11 +72,11 @@ def create_event(request):
 
     except Alarm.DoesNotExist:
         response_status = status.HTTP_404_NOT_FOUND
-        response_data[errors.message] = errors.not_found("alarm")
+        response_data[errors.message] = errors.not_found("alarm_level")
 
     except GasType.DoesNotExist:
         response_status = status.HTTP_404_NOT_FOUND
-        response_data[errors.message] = errors.not_found("alarm")
+        response_data[errors.message] = errors.not_found("gas_type")
 
     except ContractException:
         response_status = status.HTTP_406_NOT_ACCEPTABLE
