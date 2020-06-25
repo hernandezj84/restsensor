@@ -1,7 +1,7 @@
 
 class Insert:
     def __init__(self):
-        self.fields_types = ["ForeignKey", "AutoField"]
+        self.fields_types = ["ForeignKey", "AutoField", "BooleanField"]
 
     def save_model(self, model, json_post):
         model_structure = {x.name: model._meta.get_field(

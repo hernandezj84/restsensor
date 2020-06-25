@@ -18,12 +18,11 @@ class ApiUser(models.Model):
         return "{} | {} {} | {}".format(self.user, self.name, self.lastname, self.phone)
 
 
-class Category(models.Model):
-    """Model of the device_type category"""
+class DeviceType(models.Model):
+    """Model of the device_type"""
     class Meta:
-        verbose_name_plural = "categories"
+        verbose_name_plural = "Device types"
     name = models.CharField(max_length=100, unique=True)
-    description = models.TextField()
 
     def __str__(self):
         return self.name
@@ -34,8 +33,10 @@ class Device(models.Model):
     class Meta:
         verbose_name_plural = "devices"
     device_id = models.CharField(max_length=20, unique=True)
-    device_type = models.ForeignKey(Category, on_delete=models.PROTECT)
+    device_type = models.ForeignKey(DeviceType, on_delete=models.PROTECT)
     serial = models.CharField(max_length=100, unique=True)
+    timestamp = models.IntegerField(blank=True, null=True)
+    active = models.BooleanField()
 
     def __str__(self):
         return "{} | {}".format(self.device_id, self.device_type)
