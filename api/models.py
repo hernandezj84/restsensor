@@ -53,11 +53,12 @@ class DeviceUser(models.Model):
 
 class Alarm(models.Model):
     """Model that defines the type of the alarms"""
-    alarm = models.CharField(max_length=100, unique=True)
+    alarm = models.IntegerField(unique=True)
     description = models.CharField(max_length=25)
 
     def __str__(self):
         return "{} | {}".format(self.alarm, self.description)
+
 
 class GasType(models.Model):
     """Model that defines the category or the types of gases for the project"""
@@ -65,6 +66,7 @@ class GasType(models.Model):
 
     def __str__(self):
         return self.gas_type
+
 
 class Event(models.Model):
     """Model that defines a device's event"""
