@@ -35,7 +35,7 @@ class Device(models.Model):
     device_id = models.CharField(max_length=20, unique=True)
     device_type = models.ForeignKey(DeviceType, on_delete=models.PROTECT)
     serial = models.CharField(max_length=100, unique=True)
-    timestamp = models.IntegerField(blank=True, null=True)
+    time_stamp = models.IntegerField(blank=True, null=True)
     active = models.BooleanField()
 
     def __str__(self):

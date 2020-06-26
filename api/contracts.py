@@ -44,7 +44,7 @@ class RegistryContract():
             "device_id": "TTTTTT-LLLL-IIIII",
             "device_type": "DEVICE_TYPE_STRING",
             "serial": "SERIAL_NUMBER_STRING",
-            "timestamp": 1592605050
+            "time_stamp": 1592605050
         }
         self.contract_keys = ContractHelper.get_contract_keys(self.contract)
         self.contract_types = ContractHelper.get_contract_types(

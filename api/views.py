@@ -22,8 +22,6 @@ def test(request):
 @response_exceptions
 def create_event(request):
     """Creates an event with a POST request based in EventContract class"""
-    event_contract = EventContract()
-    event_fields = SimpleNamespace(**event_contract.contract_keys)
     success = SuccessMessages()
     insert = Insert()
     response_data = {}
@@ -32,10 +30,10 @@ def create_event(request):
     json_post = request.data
     response_data["JSON_TEAM"] = json_post
     device = Device.objects.get(
-        device_id=json_post[event_fields.device_id])
+        device_id=json_post["device_id"])
     alarm = Alarm.objects.get(alarm=json_post["alarm_level"])
     gas_type = GasType.objects.get(
-        gas_type=json_post[event_fields.gas_type])
+        gas_type=json_post["gas_type"])
     event = Event(device=device, alarm=alarm, gas_type=gas_type)
     insert.save_model(event, json_post)
     response_data[success.message] = success.inserted(
@@ -51,21 +49,18 @@ def create_registry(request):
     response_status = status.HTTP_201_CREATED
     success = SuccessMessages()
     insert = Insert()
-    registry_contract = RegistryContract()
-    registry_fields = SimpleNamespace(**registry_contract.contract_keys)
-
     json_post = request.data
     response_data["JSON_TEAM"] = json_post
     device_type = DeviceType.objects.filter(
-        name=json_post[registry_fields.device_type])
+        name=json_post["device_type"])
     if len(device_type) == 0:
         device_type = DeviceType(
-            name=json_post[registry_fields.device_type])
+            name=json_post["device_type"])
         device_type.save()
     else:
         device_type = device_type[0]
     device = Device.objects.filter(
-        device_id=json_post[registry_fields.device_id], serial=json_post[registry_fields.serial])
+        device_id=json_post["device_id"], serial=json_post["serial"])
     if len(device) == 0:
         device = Device(device_type=device_type, active=True)
     else:

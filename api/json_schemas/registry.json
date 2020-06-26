@@ -9,14 +9,14 @@
             "device_id": "TTTTTT-LLLL-IIIII",
             "device_type": "DEVICE_TYPE_STRING",
             "serial": "SERIAL_NUMBER_STRING",
-            "timestamp": 1592605050
+            "time_stamp": 1592605050
         }
     ],
     "required": [
         "device_id",
         "device_type",
         "serial",
-        "timestamp"
+        "time_stamp"
     ],
     "additionalProperties": true,
     "properties": {
@@ -50,10 +50,10 @@
                 "SERIAL_NUMBER_STRING"
             ]
         },
-        "timestamp": {
-            "$id": "#/properties/timestamp",
+        "time_stamp": {
+            "$id": "#/properties/time_stamp",
             "type": "integer",
-            "title": "The timestamp schema",
+            "title": "The time_stamp schema",
             "description": "An explanation about the purpose of this instance.",
             "default": 0,
             "examples": [

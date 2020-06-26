@@ -29,34 +29,34 @@ def response_exceptions(function):
             validate(json.dumps(json_data), schema)
 
             return function(*args, **kwargs)
-        except KeyError:
+        except KeyError as error:
             response_status = status.HTTP_406_NOT_ACCEPTABLE
-            response_data[errors.message] = errors.invalid_post
+            response_data[errors.message] = str(error)
             return Response(response_data, status=response_status)
 
-        except Device.DoesNotExist:
+        except Device.DoesNotExist as error:
             response_status = status.HTTP_404_NOT_FOUND
-            response_data[errors.message] = errors.not_found("device")
+            response_data[errors.message] = str(error)
             return Response(response_data, status=response_status)
 
-        except Alarm.DoesNotExist:
+        except Alarm.DoesNotExist as error:
             response_status = status.HTTP_404_NOT_FOUND
-            response_data[errors.message] = errors.not_found("alarm_level")
+            response_data[errors.message] = str(error)
             return Response(response_data, status=response_status)
 
-        except GasType.DoesNotExist:
+        except GasType.DoesNotExist as error:
             response_status = status.HTTP_404_NOT_FOUND
-            response_data[errors.message] = errors.not_found("gas_type")
+            response_data[errors.message] = str(error)
             return Response(response_data, status=response_status)
 
-        except IntegrityError:
+        except IntegrityError as error:
             response_status = status.HTTP_406_NOT_ACCEPTABLE
-            response_data[errors.message] = errors.integrity_error
+            response_data[errors.message] = str(error)
             return Response(response_data, status=response_status)
 
-        except ValueError:
+        except ValueError as error:
             response_status = status.HTTP_406_NOT_ACCEPTABLE
-            response_data[errors.message] = errors.json_keys
+            response_data[errors.message] = str(error)
             return Response(response_data, status=response_status)
 
     return decorated
