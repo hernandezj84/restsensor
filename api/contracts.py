@@ -29,7 +29,8 @@ class EventContract():
             "time_stamp": 1592605050,
             "battery_level": 10,
             "rssi": -90,
-            "jocker": "string"}
+            "jocker": "string"
+        }
         self.contract_keys = ContractHelper.get_contract_keys(self.contract)
         self.contract_types = ContractHelper.get_contract_types(self.contract)
 
