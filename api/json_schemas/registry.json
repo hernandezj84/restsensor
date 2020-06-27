@@ -1,0 +1,64 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "examples": [
+        {
+            "device_id": "TTTTTT-LLLL-IIIII",
+            "device_type": "DEVICE_TYPE_STRING",
+            "serial": "SERIAL_NUMBER_STRING",
+            "time_stamp": 1592605050
+        }
+    ],
+    "required": [
+        "device_id",
+        "device_type",
+        "serial",
+        "time_stamp"
+    ],
+    "additionalProperties": true,
+    "properties": {
+        "device_id": {
+            "$id": "#/properties/device_id",
+            "type": "string",
+            "title": "The device_id schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "TTTTTT-LLLL-IIIII"
+            ]
+        },
+        "device_type": {
+            "$id": "#/properties/device_type",
+            "type": "string",
+            "title": "The device_type schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "DEVICE_TYPE_STRING"
+            ]
+        },
+        "serial": {
+            "$id": "#/properties/serial",
+            "type": "string",
+            "title": "The serial schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "SERIAL_NUMBER_STRING"
+            ]
+        },
+        "time_stamp": {
+            "$id": "#/properties/time_stamp",
+            "type": "integer",
+            "title": "The time_stamp schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": 0,
+            "examples": [
+                1592605050
+            ]
+        }
+    }
+}
