@@ -2,8 +2,8 @@
 from functools import wraps
 import os
 import json
-from rest_framework import status
 from django.db import IntegrityError
+from rest_framework import status
 from rest_framework.response import Response
 from jsonschema import validate
 from api.messages import ErrorsMessages
@@ -20,7 +20,6 @@ def response_exceptions(function):
     @wraps(function)
     def decorated(*args, **kwargs):
         errors = ErrorsMessages()
-        # TODO clear JSON_TEAM response in production
         json_data = args[0].data
         response_data = {"JSON_TEAM": json_data}
         try:
