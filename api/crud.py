@@ -1,5 +1,6 @@
 """Create, read, update and delete helper"""
 from api.models import Device, Event, GasType, Alarm, DeviceType
+from api.firebase import Firebase
 
 MODEL_CONTRACT_MAP = {
     Device.__name__: "registry",
@@ -50,11 +51,14 @@ class Crud:
 
     def save_event(self, json_post):
         """Saves event model from json_post"""
+
         device = Device.objects.get(device_id=json_post["device_id"])
         alarm = Alarm.objects.get(alarm=json_post["alarm_level"])
         gas_type = GasType.objects.get(gas_type=json_post["gas_type"])
         event = Event(device=device, alarm=alarm, gas_type=gas_type)
         self.save_model(event, json_post)
+        firebase_api = Firebase()
+        firebase_api.set_event(json_post)
         return event
 
     @staticmethod
