@@ -1,6 +1,5 @@
 """Updates firebase database"""
 import pyrebase
-from api.models import Event
 
 
 class Firebase:
