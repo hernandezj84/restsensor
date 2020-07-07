@@ -1,4 +1,6 @@
 """Create, read, update and delete helper"""
+from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
 from api.models import Device, Event, GasType, Alarm, DeviceType
 from api.firebase import Firebase
 
@@ -25,6 +27,11 @@ CONTRACTS_MAP = {
         "device_type": "device_type",
         "serial": "serial",
         "time_stamp": "time_stamp"
+    },
+    "signup": {
+        "username": "username",
+        "email": "email",
+        "password": "password"
     }
 }
 
@@ -91,3 +98,11 @@ class Crud:
             json_post["device_id"], json_post["serial"], device_type)
         self.save_model(device, json_post)
         return device
+
+    def save_user(self, json_post):
+        """Creates a new user"""
+        user = User.objects.create_user(
+            username=json_post["username"], email=json_post["email"], password=json_post["password"])
+        user.save()
+        token = Token.objects.get_or_create(user=user)
+        return token[0].key

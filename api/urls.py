@@ -7,6 +7,7 @@ urlpatterns = [
     url('^api/event/$', views.create_event),
     url('^api/registry/$', views.create_registry),
     url('^api/login/$', obtain_auth_token),
+    url('^api/signup/$', views.create_user),
     url('^$', views.test),
 
 ]

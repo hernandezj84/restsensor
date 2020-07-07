@@ -44,3 +44,17 @@ def create_registry(request):
     response_data[success.message] = success.inserted(
         "Device", device.device_id)
     return Response(response_data, status=response_status)
+
+
+@api_view(['POST'])
+@response_exceptions
+def create_user(request):
+    """Create a user on django database"""
+    json_post = request.data
+    response_data = {}
+    response_data["JSON_TEAM"] = json_post
+    response_status = status.HTTP_201_CREATED
+    crud = Crud()
+    token = crud.save_user(json_post)
+    response_data["token"] = token
+    return Response(response_data, status=response_status)
