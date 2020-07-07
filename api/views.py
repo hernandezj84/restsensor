@@ -20,7 +20,6 @@ def create_event(request):
     """Creates an event with a POST request based in EventContract class"""
     response_data = {}
     json_post = request.data
-    response_data["JSON_TEAM"] = json_post
     success = SuccessMessages()
     crud = Crud()
     event = crud.save_event(json_post)
@@ -52,7 +51,6 @@ def create_user(request):
     """Create a user on django database"""
     json_post = request.data
     response_data = {}
-    response_data["JSON_TEAM"] = json_post
     response_status = status.HTTP_201_CREATED
     crud = Crud()
     token = crud.save_user(json_post)
