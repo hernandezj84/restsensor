@@ -32,6 +32,10 @@ class EmailNotFound(Exception):
     """Raise email not found exception"""
 
 
+class NoTokenFound(Exception):
+    """Raise token not found exception"""
+
+
 def response_exceptions(function):
     """Creates a decorator to handle json expections"""
     @wraps(function)
@@ -56,6 +60,8 @@ def response_exceptions(function):
                             'user_email not found or invalid password')
 
             if function.__name__ == "token_test":
+                if not args[0].auth:
+                    raise NoTokenFound('Invalid Token')
                 Token.objects.get(key=args[0].auth)
 
             return function(*args, **kwargs)
@@ -65,6 +71,11 @@ def response_exceptions(function):
             return Response(response_data, status=response_status)
 
         except EmailException as error:
+            response_status = status.HTTP_406_NOT_ACCEPTABLE
+            response_data[errors.message] = str(error)
+            return Response(response_data, status=response_status)
+
+        except NoTokenFound as error:
             response_status = status.HTTP_406_NOT_ACCEPTABLE
             response_data[errors.message] = str(error)
             return Response(response_data, status=response_status)
