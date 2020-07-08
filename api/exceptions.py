@@ -4,6 +4,7 @@ import re
 import os
 import json
 from django.db import IntegrityError
+from django.contrib.auth import authenticate
 from rest_framework import status
 from rest_framework.response import Response
 from jsonschema import validate
@@ -14,7 +15,8 @@ EMAIL_PATTERN = "^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$"
 MODULE_DIR = os.path.dirname(__file__)
 SCHEMAS_MAP = {"create_registry": os.path.join(MODULE_DIR, "json_schemas", "registry.json"),
                "create_event": os.path.join(MODULE_DIR, "json_schemas", "event.json"),
-               "create_user": os.path.join(MODULE_DIR, "json_schemas", "signup.json")}
+               "create_user": os.path.join(MODULE_DIR, "json_schemas", "signup.json"),
+               "login": os.path.join(MODULE_DIR, "json_schemas", "login.json")}
 
 
 class EmailException(Exception):
@@ -23,6 +25,10 @@ class EmailException(Exception):
 
 class UserNameException(Exception):
     """Raise username exception"""
+
+
+class EmailNotFound(Exception):
+    """Raise email not found exception"""
 
 
 def response_exceptions(function):
@@ -42,6 +48,10 @@ def response_exceptions(function):
 
                 if ApiUser.objects.filter(user_name=json_data["user_name"]).exists():
                     raise UserNameException('user_name already exists')
+            if function.__name__ == "login":
+                if not authenticate(username=json_data["user_email"], password=json_data["password"]):
+                    raise EmailNotFound(
+                        'user_email not found or invalid password')
 
             return function(*args, **kwargs)
         except KeyError as error:
@@ -50,6 +60,11 @@ def response_exceptions(function):
             return Response(response_data, status=response_status)
 
         except EmailException as error:
+            response_status = status.HTTP_406_NOT_ACCEPTABLE
+            response_data[errors.message] = str(error)
+            return Response(response_data, status=response_status)
+
+        except EmailNotFound as error:
             response_status = status.HTTP_406_NOT_ACCEPTABLE
             response_data[errors.message] = str(error)
             return Response(response_data, status=response_status)

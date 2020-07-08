@@ -51,7 +51,18 @@ def create_user(request):
     json_post = request.data
     response_data = {}
     response_status = status.HTTP_201_CREATED
-    crud = Crud()
-    token = crud.save_user(json_post)
+    token = Crud.save_user(json_post)
+    response_data["token"] = token
+    return Response(response_data, status=response_status)
+
+
+@api_view(['POST'])
+@response_exceptions
+def login(request):
+    """Response with token"""
+    json_post = request.data
+    response_data = {}
+    response_status = status.HTTP_200_OK
+    token = Crud.login(json_post)
     response_data["token"] = token
     return Response(response_data, status=response_status)

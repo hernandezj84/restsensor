@@ -99,10 +99,19 @@ class Crud:
         self.save_model(device, json_post)
         return device
 
-    def save_user(self, json_post):
+    @staticmethod
+    def save_user(json_post):
         """Creates a new user"""
         user = User.objects.create_user(
             username=json_post["user_email"], email=json_post["user_email"], password=json_post["password"])
         ApiUser.objects.create(user=user, user_name=json_post["user_name"])
+        token = Token.objects.get_or_create(user=user)
+        return token[0].key
+
+    @staticmethod
+    def login(json_post):
+        """Gives token to user"""
+        user = User.objects.get(
+            username=json_post["user_email"])
         token = Token.objects.get_or_create(user=user)
         return token[0].key
