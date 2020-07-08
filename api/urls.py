@@ -8,6 +8,7 @@ urlpatterns = [
     url('^api/registry/$', views.create_registry),
     url('^api/login2/$', obtain_auth_token),
     url('^api/login/$', views.login),
+    url('^api/token_test/', views.token_test),
     url('^api/signup/$', views.create_user),
     url('^$', views.test),
 

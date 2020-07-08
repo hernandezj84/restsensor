@@ -66,3 +66,12 @@ def login(request):
     token = Crud.login(json_post)
     response_data["token"] = token
     return Response(response_data, status=response_status)
+
+
+@api_view(['GET'])
+@response_exceptions
+def token_test(request):
+    """Response if the header has a token"""
+    response_status = status.HTTP_200_OK
+    user = Crud.get_token(request.auth)
+    return Response({"Hello": user}, status=response_status)

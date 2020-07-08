@@ -7,6 +7,7 @@ from django.db import IntegrityError
 from django.contrib.auth import authenticate
 from rest_framework import status
 from rest_framework.response import Response
+from rest_framework.authtoken.models import Token
 from jsonschema import validate
 from api.messages import ErrorsMessages
 from api.models import Device, Alarm, GasType, ApiUser
@@ -39,19 +40,23 @@ def response_exceptions(function):
         json_data = args[0].data
         response_data = {"JSON_TEAM": json_data}
         try:
-            schema = json.loads(
-                open(SCHEMAS_MAP[function.__name__], "r").read())
-            validate(json.dumps(json_data), schema)
-            if function.__name__ == "create_user":
-                if not re.search(EMAIL_PATTERN, json_data["user_email"]):
-                    raise EmailException('The email is not correct')
+            if function.__name__ != "token_test":
+                schema = json.loads(
+                    open(SCHEMAS_MAP[function.__name__], "r").read())
+                validate(json.dumps(json_data), schema)
+                if function.__name__ == "create_user":
+                    if not re.search(EMAIL_PATTERN, json_data["user_email"]):
+                        raise EmailException('The email is not correct')
 
-                if ApiUser.objects.filter(user_name=json_data["user_name"]).exists():
-                    raise UserNameException('user_name already exists')
-            if function.__name__ == "login":
-                if not authenticate(username=json_data["user_email"], password=json_data["password"]):
-                    raise EmailNotFound(
-                        'user_email not found or invalid password')
+                    if ApiUser.objects.filter(user_name=json_data["user_name"]).exists():
+                        raise UserNameException('user_name already exists')
+                if function.__name__ == "login":
+                    if not authenticate(username=json_data["user_email"], password=json_data["password"]):
+                        raise EmailNotFound(
+                            'user_email not found or invalid password')
+
+            if function.__name__ == "token_test":
+                Token.objects.get(key=args[0].auth)
 
             return function(*args, **kwargs)
         except KeyError as error:

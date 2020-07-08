@@ -115,3 +115,7 @@ class Crud:
             username=json_post["user_email"])
         token = Token.objects.get_or_create(user=user)
         return token[0].key
+
+    @staticmethod
+    def get_token(token):
+        return Token.objects.get(key=token).user.username
