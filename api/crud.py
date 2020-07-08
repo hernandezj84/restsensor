@@ -29,8 +29,8 @@ CONTRACTS_MAP = {
         "time_stamp": "time_stamp"
     },
     "signup": {
-        "username": "username",
-        "email": "email",
+        "user_name": "username",
+        "user_email": "email",
         "password": "password"
     }
 }
@@ -102,7 +102,7 @@ class Crud:
     def save_user(self, json_post):
         """Creates a new user"""
         user = User.objects.create_user(
-            username=json_post["username"], email=json_post["email"], password=json_post["password"])
+            username=json_post["user_name"], email=json_post["user_email"], password=json_post["password"])
         user.save()
         token = Token.objects.get_or_create(user=user)
         return token[0].key

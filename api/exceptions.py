@@ -32,8 +32,8 @@ def response_exceptions(function):
             schema = json.loads(
                 open(SCHEMAS_MAP[function.__name__], "r").read())
             validate(json.dumps(json_data), schema)
-            if "email" in json_data:
-                if not re.search(EMAIL_PATTERN, json_data["email"]):
+            if "user_email" in json_data:
+                if not re.search(EMAIL_PATTERN, json_data["user_email"]):
                     raise EmailException('The email is not correct')
 
             return function(*args, **kwargs)

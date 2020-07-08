@@ -6,19 +6,19 @@
     "default": {},
     "examples": [
         {
-            "username": "hernandezj84",
-            "email": "hernandezj84@gmail.com",
+            "user_name": "hernandezj84",
+            "user_email": "hernandezj84@gmail.com",
             "password": "123456"
         }
     ],
     "required": [
-        "username",
-        "email",
+        "user_name",
+        "user_email",
         "password"
     ],
     "additionalProperties": true,
     "properties": {
-        "username": {
+        "user_name": {
             "$id": "#/properties/username",
             "type": "string",
             "title": "The username schema",
@@ -28,7 +28,7 @@
                 "hernandezj84"
             ]
         },
-        "email": {
+        "user_email": {
             "$id": "#/properties/email",
             "type": "string",
             "title": "The email schema",
