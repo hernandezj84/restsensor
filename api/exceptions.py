@@ -8,9 +8,9 @@ from rest_framework import status
 from rest_framework.response import Response
 from jsonschema import validate
 from api.messages import ErrorsMessages
-from api.models import Device, Alarm, GasType
+from api.models import Device, Alarm, GasType, ApiUser
 
-EMAIL_PATTERN = "^\w+@[a-zA-Z_]+?.[a-zA-Z]{2,3}$"
+EMAIL_PATTERN = "^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$"
 MODULE_DIR = os.path.dirname(__file__)
 SCHEMAS_MAP = {"create_registry": os.path.join(MODULE_DIR, "json_schemas", "registry.json"),
                "create_event": os.path.join(MODULE_DIR, "json_schemas", "event.json"),
@@ -19,6 +19,10 @@ SCHEMAS_MAP = {"create_registry": os.path.join(MODULE_DIR, "json_schemas", "regi
 
 class EmailException(Exception):
     """Raise contract exception"""
+
+
+class UserNameException(Exception):
+    """Raise username exception"""
 
 
 def response_exceptions(function):
@@ -32,9 +36,12 @@ def response_exceptions(function):
             schema = json.loads(
                 open(SCHEMAS_MAP[function.__name__], "r").read())
             validate(json.dumps(json_data), schema)
-            if "user_email" in json_data:
+            if function.__name__ == "create_user":
                 if not re.search(EMAIL_PATTERN, json_data["user_email"]):
                     raise EmailException('The email is not correct')
+
+                if ApiUser.objects.filter(user_name=json_data["user_name"]).exists():
+                    raise UserNameException('user_name already exists')
 
             return function(*args, **kwargs)
         except KeyError as error:
@@ -43,6 +50,11 @@ def response_exceptions(function):
             return Response(response_data, status=response_status)
 
         except EmailException as error:
+            response_status = status.HTTP_406_NOT_ACCEPTABLE
+            response_data[errors.message] = str(error)
+            return Response(response_data, status=response_status)
+
+        except UserNameException as error:
             response_status = status.HTTP_406_NOT_ACCEPTABLE
             response_data[errors.message] = str(error)
             return Response(response_data, status=response_status)

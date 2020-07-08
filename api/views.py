@@ -39,7 +39,6 @@ def create_registry(request):
     success = SuccessMessages()
     crud = Crud()
     device = crud.save_registry(json_post)
-    response_data["JSON_TEAM"] = json_post
     response_data[success.message] = success.inserted(
         "Device", device.device_id)
     return Response(response_data, status=response_status)

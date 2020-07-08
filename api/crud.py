@@ -1,7 +1,7 @@
 """Create, read, update and delete helper"""
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
-from api.models import Device, Event, GasType, Alarm, DeviceType
+from api.models import Device, Event, GasType, Alarm, DeviceType, ApiUser
 from api.firebase import Firebase
 
 MODEL_CONTRACT_MAP = {
@@ -102,7 +102,7 @@ class Crud:
     def save_user(self, json_post):
         """Creates a new user"""
         user = User.objects.create_user(
-            username=json_post["user_name"], email=json_post["user_email"], password=json_post["password"])
-        user.save()
+            username=json_post["user_email"], email=json_post["user_email"], password=json_post["password"])
+        ApiUser.objects.create(user=user, user_name=json_post["user_name"])
         token = Token.objects.get_or_create(user=user)
         return token[0].key
